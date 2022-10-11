@@ -1,5 +1,7 @@
 import { ReactNode, Fragment, useState } from 'react'
 import { NextPage } from 'next';
+import { useRouter } from "next/router";
+import Link from 'next/link';
 import { Dialog, Transition } from '@headlessui/react'
 import {
   Bars3Icon,
@@ -14,11 +16,11 @@ import {
 
 const navigation = [
   { name: 'Quick Facts', href: '/', icon: LightBulbIcon, current: true },
-  { name: 'Population', href: '#', icon: UsersIcon, current: false },
-  { name: 'Housing', href: '#', icon: HomeIcon, current: false },
-  { name: 'Education', href: '#', icon: AcademicCapIcon, current: false },
-  { name: 'Labor Force', href: '#', icon: BriefcaseIcon, current: false },
-  { name: 'Goals', href: '#', icon: ChartBarIcon, current: false },
+  { name: 'Population', href: '/population', icon: UsersIcon, current: false },
+  { name: 'Housing', href: '/housing', icon: HomeIcon, current: false },
+  { name: 'Education', href: '/education', icon: AcademicCapIcon, current: false },
+  { name: 'Labor Force', href: '/labor', icon: BriefcaseIcon, current: false },
+  { name: 'Goals', href: '/goals', icon: ChartBarIcon, current: false },
 ]
 
 interface Props {
@@ -30,6 +32,7 @@ function classNames(...classes: any) {
 }
 
 const Layout: NextPage<Props> = ({ children }) => {
+  const router = useRouter();
   const [sidebarOpen, setSidebarOpen] = useState(false)
 
   return (
@@ -90,25 +93,25 @@ const Layout: NextPage<Props> = ({ children }) => {
                     </div>
                     <nav className="mt-5 space-y-1 px-2">
                       {navigation.map((item) => (
-                        <a
+                        <Link
                           key={item.name}
                           href={item.href}
-                          className={classNames(
-                            item.current
-                              ? 'bg-gray-100 text-gray-900'
-                              : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900',
-                            'group flex items-center px-2 py-2 text-base font-medium rounded-md'
-                          )}
-                        >
+                        ><div className={classNames(
+                          router.asPath == item.href
+                            ? 'bg-gray-100 text-gray-900'
+                            : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900',
+                          'group flex items-center px-2 py-2 text-base font-medium rounded-md'
+                        )}>
                           <item.icon
                             className={classNames(
-                              item.current ? 'text-gray-500' : 'text-gray-400 group-hover:text-gray-500',
+                              router.asPath == item.href ? 'text-gray-500' : 'text-gray-400 group-hover:text-gray-500',
                               'mr-4 flex-shrink-0 h-6 w-6'
                             )}
                             aria-hidden="true"
                           />
                           {item.name}
-                        </a>
+                        </div>
+                        </Link>
                       ))}
                     </nav>
                   </div>
@@ -133,23 +136,26 @@ const Layout: NextPage<Props> = ({ children }) => {
               </div>
               <nav className="mt-5 flex-1 space-y-1 bg-white px-2">
                 {navigation.map((item) => (
-                  <a
+                  <Link
                     key={item.name}
                     href={item.href}
-                    className={classNames(
-                      item.current ? 'bg-gray-100 text-gray-900' : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900',
-                      'group flex items-center px-2 py-2 text-sm font-medium rounded-md'
-                    )}
-                  >
+                  ><div className={classNames(
+                    router.asPath == item.href
+                      ? 'bg-gray-100 text-gray-900'
+                      : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900',
+                    'group flex items-center px-2 py-2 text-base font-medium rounded-md'
+                  )}>
                     <item.icon
                       className={classNames(
-                        item.current ? 'text-gray-500' : 'text-gray-400 group-hover:text-gray-500',
+                        router.asPath == item.href ? 'text-gray-500' : 'text-gray-400 group-hover:text-gray-500',
                         'mr-3 flex-shrink-0 h-6 w-6'
                       )}
                       aria-hidden="true"
                     />
                     {item.name}
-                  </a>
+                    </div>
+
+                  </Link>
                 ))}
               </nav>
             </div>
