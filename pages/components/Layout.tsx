@@ -96,7 +96,7 @@ const Layout: NextPage<Props> = ({ children }) => {
                         <Link
                           key={item.name}
                           href={item.href}
-                        ><div className={classNames(
+                        ><a className={classNames(
                           router.asPath == item.href
                             ? 'bg-gray-100 text-gray-900'
                             : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900',
@@ -110,7 +110,7 @@ const Layout: NextPage<Props> = ({ children }) => {
                             aria-hidden="true"
                           />
                           {item.name}
-                        </div>
+                        </a>
                         </Link>
                       ))}
                     </nav>
@@ -139,7 +139,7 @@ const Layout: NextPage<Props> = ({ children }) => {
                   <Link
                     key={item.name}
                     href={item.href}
-                  ><div className={classNames(
+                  ><a className={classNames(
                     router.asPath == item.href
                       ? 'bg-gray-100 text-gray-900'
                       : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900',
@@ -153,7 +153,7 @@ const Layout: NextPage<Props> = ({ children }) => {
                       aria-hidden="true"
                     />
                     {item.name}
-                    </div>
+                    </a>
 
                   </Link>
                 ))}
